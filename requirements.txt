@@ -1,0 +1,7 @@
+Django==4.2.17
+websockets==11.0.2
+channels[daphne]==4.0.0
+channels-redis==4.0.0
+python-dotenv==1.0.1
+django-admin-interface==0.29.2
+mutagen==1.47.0
