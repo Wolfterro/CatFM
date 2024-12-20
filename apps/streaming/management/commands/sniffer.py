@@ -1,4 +1,5 @@
 import os
+import hashlib
 from django.core.management.base import BaseCommand, CommandError
 
 from apps.streaming.models import Audio
@@ -29,7 +30,12 @@ class Command(BaseCommand):
 
     def register_mp3_files(self, mp3_files):
         for mp3_file in mp3_files:
-            filename = os.path.basename(mp3_file)
+            filename = os.path.basename(mp3_file).replace(".mp3", "")
+            md5 = hashlib.md5(open(mp3_file, 'rb').read()).hexdigest()
+            if Audio.objects.filter(md5=md5).exists():
+                self.stdout.write(self.style.WARNING(f'Arquivo "{filename}" duplicado! Pulando...'))
+                continue
+
             with open(mp3_file, 'rb') as audio_file:
                 audio = Audio()
                 audio.name = filename

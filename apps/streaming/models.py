@@ -1,4 +1,5 @@
 import uuid
+import hashlib
 from django.db import models
 
 from apps.streaming.utils import upload_to_instance_folder
@@ -20,6 +21,7 @@ class Audio(models.Model):
 
     file = models.FileField(upload_to=upload_to_instance_folder)
     format = models.CharField(max_length=5, default="mp3")
+    md5 = models.CharField(max_length=32, default=None, editable=False)
 
     is_active = models.BooleanField(default=True)
 
@@ -29,6 +31,7 @@ class Audio(models.Model):
     def save(self, *args, **kwargs):
         old_file = self.file
         if not self.id:
+            self.md5 = hashlib.md5(open(self.file.path, 'rb').read()).hexdigest()
             super(Audio, self).save(*args, **kwargs)
 
         if not self.duration_in_seconds or (self.file and old_file != self.file):
