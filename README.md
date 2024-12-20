@@ -5,8 +5,9 @@ CatFM é um pequeno projeto de software desenvolvido em Python utilizando o fram
 Ele irá conter duas ferramentas principais:
 
 - Radio
-- Streaming
-- Radio
+- Streaming 
+
+## Radio
 
 A aplicação de rádio irá ser responsável por fazer o streaming contínuo dos arquivos de áudio selecionados para serem transmitidos em um canal selecionado utilizando a tecnologia de WebSockets.
 
