@@ -170,3 +170,13 @@ cython_debug/
 # Project Configs
 media/*
 media/*/*.*
+downloads/*.mp3
+downloads/*.mp4
+downloads/*.aac
+downloads/*.flac
+downloads/*.wav
+downloads/*.ogg
+downloads/*.m4a
+downloads/*.webm
+downloads/*.mkv
+downloads/*.m3u8

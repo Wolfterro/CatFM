@@ -1,6 +1,19 @@
 {% extends "admin/change_form.html" %}
 
 {% block after_field_sets %}
+    {% if original and original.cover_url %}
+        <h3>Audio Cover</h3>
+        <img src="{{ original.cover_url }}" alt="Audio Cover" width="50%" height="50%">
+    {% elif original and original.cover %}
+        <h3>Audio Cover</h3>
+        <img src="{{ original.cover.url }}" alt="Audio Cover" width="50%" height="50%">
+    {% else %}
+        <h3>Audio Cover</h3>
+        <p>No audio cover uploaded.</p>
+    {% endif %}
+    <br>
+    <br>
+
     {% if original and original.file %}
         <h3>Audio Player</h3>
 

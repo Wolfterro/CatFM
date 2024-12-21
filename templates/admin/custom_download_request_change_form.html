@@ -1,0 +1,21 @@
+{% extends "admin/change_form.html" %}
+
+{% block after_field_sets %}
+    {% if original and original.url %}
+        <h3>Video Player</h3>
+
+        <iframe
+            width="560"
+            height="315"
+            src="https://www.youtube.com/embed/{{ original.url_id }}"
+            title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen>
+        </iframe>
+    {% else %}
+        <p>No video available.</p>
+    {% endif %}
+    <br>
+    <br>
+{% endblock %}

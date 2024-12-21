@@ -155,3 +155,4 @@ CHANNEL_LAYERS = {
 
 # Misc Configs
 ADMIN_SITE_HEADER = "CatFM Admin"
+DOWNLOAD_PATH = os.path.join(BASE_DIR, 'downloads')
