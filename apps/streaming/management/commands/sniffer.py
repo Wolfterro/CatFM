@@ -6,7 +6,7 @@ from apps.streaming.models import Audio
 
 
 class Command(BaseCommand):
-    help = 'Aceita um caminho de pasta como argumento e o imprime.'
+    help = 'Registra novos arquivos MP3 na base de dados.'
 
     def add_arguments(self, parser):
         parser.add_argument(

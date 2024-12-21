@@ -26,7 +26,7 @@ class Downloader(object):
             'format': "mp3",
             'album': info.get('album', 'Album Desconhecido'),
             'artist': info.get('artists', ['Artista Desconhecido'])[0],
-            'year': info.get('release_year', 0),
+            'year': info.get('release_year', 0) or 0,
             'cover_url': info.get('thumbnail', None)
         }
 
@@ -47,7 +47,7 @@ class Downloader(object):
 
         print(">>> Audio baixado: {}! Registrando...".format(download_request.url))
         download_request.register(info_dict)
-        self._clean_download_file(info)
+        self._clean_download_file(info_dict)
 
     def _get_download_info(self, download_request):
         ytdl_opts = {}
