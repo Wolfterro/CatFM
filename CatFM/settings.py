@@ -50,6 +50,7 @@ INSTALLED_APPS = [
 ]
 
 PROJECT_APPS = [
+    'apps.catuser',
     'apps.radio',
     'apps.streaming',
 ]
@@ -154,5 +155,7 @@ CHANNEL_LAYERS = {
 }
 
 # Misc Configs
+# ============
+AUTH_USER_MODEL = 'catuser.CatUser'
 ADMIN_SITE_HEADER = "CatFM Admin"
 DOWNLOAD_PATH = os.path.join(BASE_DIR, 'downloads')

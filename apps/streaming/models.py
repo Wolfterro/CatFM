@@ -100,3 +100,16 @@ class DownloadRequest(models.Model):
         self.approved_at = timezone.now()
         self.audio = audio
         self.save()
+
+
+# class Playlist(models.Model):
+#     name = models.CharField(max_length=255)
+#     audios = models.ManyToManyField(Audio)
+#
+#     is_system_playlist = models.BooleanField(default=False)
+#
+#     created_at = models.DateTimeField(auto_now_add=True)
+#     updated_at = models.DateTimeField(auto_now=True)
+#
+#     def __str__(self):
+#         return self.name

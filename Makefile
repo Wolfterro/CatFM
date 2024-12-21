@@ -10,3 +10,5 @@ migrate:
 shell:
 	@python manage.py shell
 
+load_theme:
+	@python manage.py loaddata templates/admin_interface_theme_catfm.json
