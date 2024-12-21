@@ -101,15 +101,47 @@ class DownloadRequest(models.Model):
         self.audio = audio
         self.save()
 
+        added_recently_playlist = Playlist.objects.filter(
+            name__iexact="Adicionados Recentemente",
+            is_system_playlist=True
+        ).first()
+        if added_recently_playlist:
+            added_recently_playlist.audios.add(audio)
+            added_recently_playlist.save()
 
-# class Playlist(models.Model):
-#     name = models.CharField(max_length=255)
-#     audios = models.ManyToManyField(Audio)
-#
-#     is_system_playlist = models.BooleanField(default=False)
-#
-#     created_at = models.DateTimeField(auto_now_add=True)
-#     updated_at = models.DateTimeField(auto_now=True)
-#
-#     def __str__(self):
-#         return self.name
+
+class Playlist(models.Model):
+    name = models.CharField(max_length=255)
+    identifier = models.UUIDField(default=uuid.uuid4, editable=False)
+
+    can_be_shared = models.BooleanField(default=True)
+    audios = models.ManyToManyField(Audio, blank=True)
+    owner = models.ForeignKey("catuser.CatUser", on_delete=models.SET_NULL, null=True, blank=True)
+
+    is_system_playlist = models.BooleanField(default=False)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return "[{}] {}{}".format(
+            "Pública" if self.can_be_shared else "Privada",
+            self.name,
+            " (Sistema)" if self.is_system_playlist else " ({})".format(self.owner if self.owner else "Usuário excluído")
+        )
+
+    def save(self, *args, **kwargs):
+        if self.is_system_playlist:
+            self.owner = None
+            self.can_be_shared = True
+
+        super(Playlist, self).save(*args, **kwargs)
+
+    # Properties
+    @property
+    def cover(self):
+        if not self.audios.exists():
+            return None
+
+        audio = self.audios.first()
+        return audio.cover_url if audio.cover_url else (audio.cover.url if audio.cover else None)
