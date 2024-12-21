@@ -15,17 +15,28 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+from rest_framework import routers
+
+from apps.catuser.api.viewsets import UserViewSet
+
+# Routers
+router = routers.DefaultRouter()
+router.register(r'users', UserViewSet)
+
+# URLs
 urlpatterns = [
+    path('', include(router.urls)),
     path('admin/', admin.site.urls),
+    path('api-auth/', include('rest_framework.urls'))
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-
+# Extra Configs
 admin.site.site_header = "CatFM Admin"
 admin.site.site_title = "CatFM Admin Portal"
 admin.site.index_title = "CatFM Admin Portal"
