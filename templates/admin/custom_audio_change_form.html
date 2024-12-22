@@ -21,6 +21,9 @@
             <source src="{{ original.file.url }}" type="audio/mpeg">
             Your browser does not support the audio element.
         </audio>
+
+        <h3>Download Link</h3>
+        <a href="{{ original.file.url }}" download> {{ original }}</a>
     {% else %}
         <p>No audio file uploaded.</p>
     {% endif %}
