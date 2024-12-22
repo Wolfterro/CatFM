@@ -24,12 +24,14 @@ from rest_framework import routers
 from apps.catuser.api.viewsets import UserViewSet
 from apps.streaming.api.viewsets import StreamingViewSet
 from apps.streaming.api.viewsets import PlaylistViewSet
+from apps.streaming.api.viewsets import DownloadRequestViewSet
 
 # Routers
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
 router.register(r'streaming', StreamingViewSet)
 router.register(r'playlist', PlaylistViewSet)
+router.register(r'download_request', DownloadRequestViewSet)
 
 # URLs
 urlpatterns = [

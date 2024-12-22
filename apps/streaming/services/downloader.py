@@ -12,6 +12,13 @@ class Downloader(object):
         for download_request in self.download_request_list:
             self._download_and_register(download_request)
 
+    def get_info(self):
+        info_list = []
+        for download_request in self.download_request_list:
+            info_list.append(self._get_download_info(download_request))
+
+        return info_list
+
     # "Private" Methods
     # -----------------
     def _download_and_register(self, download_request):

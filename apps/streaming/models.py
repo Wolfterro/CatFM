@@ -63,6 +63,7 @@ class Audio(models.Model):
 class DownloadRequest(models.Model):
     audio = models.ForeignKey(Audio, on_delete=models.SET_NULL, null=True, blank=True)
     url = models.URLField()
+    title = models.CharField(max_length=255, default=None, blank=True, null=True)
     requested_by = models.ForeignKey("catuser.CatUser", on_delete=models.SET_NULL, null=True, blank=True)
 
     status = models.CharField(max_length=255, default="pending", choices=[
