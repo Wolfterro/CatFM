@@ -50,8 +50,7 @@ INSTALLED_APPS = [
 
     # Third Party Apps
     'rest_framework',
-
-    # Local Apps
+    'rest_framework.authtoken',
 ]
 
 PROJECT_APPS = [
@@ -124,11 +123,12 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # REST Framework Configs
 REST_FRAMEWORK = {
-    # Use Django's standard `django.contrib.auth` permissions,
-    # or allow read-only access for unauthenticated users.
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-    ]
+        'rest_framework.permissions.IsAuthenticated',
+    ],
 }
 
 # Internationalization
