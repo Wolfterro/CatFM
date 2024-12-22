@@ -7,6 +7,7 @@ from django.utils import timezone
 
 from apps.streaming.utils import upload_to_instance_folder
 from apps.streaming.services.hls_converter import HLSConverterService
+from apps.streaming.services.downloader import Downloader
 
 
 # Create your models here.
@@ -118,6 +119,19 @@ class DownloadRequest(models.Model):
             added_recently_playlist.audios.add(audio)
             added_recently_playlist.save()
 
+    def set_info(self):
+        downloader = Downloader([self])
+        info_list = downloader.get_info()
+
+        try:
+            info = info_list[0]
+            self.title = info.get('title')
+            self.save()
+        except Exception as e:
+            print(">>> Erro ao registrar: {}".format(e))
+            return None
+
+        return info
 
 class Playlist(models.Model):
     name = models.CharField(max_length=255)
