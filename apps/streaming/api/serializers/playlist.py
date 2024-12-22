@@ -14,7 +14,7 @@ class PlaylistSerializer(serializers.ModelSerializer):
     )
     owner = UserSerializer(read_only=True)
     owner_id = serializers.IntegerField(write_only=True)
-    can_be_shared = serializers.BooleanField(read_only=True) # Disabling for now...
+    # can_be_shared = serializers.BooleanField() # Disabling for now...
     is_system_playlist = serializers.BooleanField(read_only=True)
 
     class Meta:
