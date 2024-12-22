@@ -55,6 +55,10 @@ class Audio(models.Model):
     def folder(self):
         return self.file.path.replace(self.file.name, str(self.identifier))
 
+    @property
+    def cover_full_url(self):
+        return self.cover.url if self.cover else self.cover_url
+
 
 class DownloadRequest(models.Model):
     audio = models.ForeignKey(Audio, on_delete=models.SET_NULL, null=True, blank=True)

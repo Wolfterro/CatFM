@@ -22,10 +22,12 @@ from django.conf.urls.static import static
 from rest_framework import routers
 
 from apps.catuser.api.viewsets import UserViewSet
+from apps.streaming.api.viewsets import StreamingViewSet
 
 # Routers
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
+router.register(r'streaming', StreamingViewSet)
 
 # URLs
 urlpatterns = [
