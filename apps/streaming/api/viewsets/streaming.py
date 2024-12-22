@@ -1,11 +1,8 @@
 from rest_framework import viewsets
 from rest_framework.permissions import AllowAny, IsAuthenticated
-from rest_framework.exceptions import ValidationError
-from rest_framework.decorators import action
-from rest_framework.response import Response
 
 from apps.streaming.models import Audio
-from apps.streaming.api.serializers import StreamingSerializer
+from apps.streaming.api.serializers.streaming import StreamingSerializer
 
 
 class StreamingViewSet(viewsets.ModelViewSet):
