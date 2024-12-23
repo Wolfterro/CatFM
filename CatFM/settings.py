@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'channels',
     'admin_interface',
     'colorfield',
+    'corsheaders',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -63,6 +64,7 @@ PROJECT_APPS = [
 INSTALLED_APPS += PROJECT_APPS
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -173,6 +175,9 @@ CHANNEL_LAYERS = {
 
 # Misc Configs
 # ============
+CORS_ALLOW_ALL_ORIGINS = True
 AUTH_USER_MODEL = 'catuser.CatUser'
 ADMIN_SITE_HEADER = "CatFM Admin"
 DOWNLOAD_PATH = os.path.join(BASE_DIR, 'downloads')
+LOGS_PATH = os.path.join(BASE_DIR, 'logs')
+WEBSOCKETS_AUTH_KEY = os.getenv("WEBSOCKETS_AUTH_KEY")

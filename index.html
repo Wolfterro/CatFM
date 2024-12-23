@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reproduzir M3U8 com WebSocket</title>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+</head>
+<body>
+    <h1>Reproduzir Áudio M3U8</h1>
+    <audio id="audio" controls controlslist="noplaybackrate"></audio>
+
+    <script>
+        const audio = document.getElementById('audio');
+        const playFromPointButton = document.getElementById('playFromPoint');
+
+        let startPoint = 0; // Valor padrão
+        let hls = null; // HLS instance
+        let currentStream = null; // To track the current loaded stream
+
+        // Conectar ao WebSocket
+        const socket = new WebSocket('ws://localhost:8000/ws/radio/649ff1c1-3b37-4d63-ae04-150ada417ef3/');
+
+        socket.addEventListener('open', () => {
+            console.log('Conexão WebSocket estabelecida.');
+            // Solicitar informações do áudio
+            socket.send(JSON.stringify({ action: 'getAudioInfo' }));
+        });
+
+        socket.addEventListener('message', (event) => {
+            const data = JSON.parse(event.data);
+
+            if (data.file_stream && data.seconds_passed !== undefined) {
+                console.log('Dados recebidos:', data);
+
+                startPoint = data.seconds_passed; // Define o ponto de início
+
+                if (currentStream !== data.file_stream) {
+                    currentStream = data.file_stream; // Atualiza o stream atual
+
+                    if (Hls.isSupported()) {
+                        if (!hls) {
+                            hls = new Hls();
+                            hls.attachMedia(audio);
+                        }
+                        hls.loadSource("http://localhost:8000" + data.file_stream);
+
+                        hls.on(Hls.Events.MANIFEST_PARSED, () => {
+                            console.log('Manifesto HLS carregado.');
+                            playFromPointButton.disabled = false;
+                        });
+                    } else if (audio.canPlayType('application/vnd.apple.mpegurl')) {
+                        // Suporte nativo ao HLS (Safari, por exemplo)
+                        audio.src = data.file_stream;
+                        playFromPointButton.disabled = false;
+                    } else {
+                        console.error('HLS não é suportado neste navegador.');
+                    }
+                } else {
+                    console.log('O mesmo stream já está carregado, nenhum carregamento necessário.');
+                }
+            }
+        });
+
+        socket.addEventListener('error', (error) => {
+            console.error('Erro no WebSocket:', error);
+        });
+
+        // Desabilitar o seeker do player
+        audio.addEventListener('seeking', (event) => {
+            if (audio.currentTime !== startPoint) {
+                console.log('Busca desativada. Retornando para o ponto inicial:', startPoint);
+                audio.currentTime = startPoint;
+            }
+        });
+
+        // Modificar o comportamento padrão do botão Play
+        audio.addEventListener('play', () => {
+            audio.currentTime = startPoint;
+        });
+
+        audio.addEventListener('pause', () => {
+            console.log('Áudio pausado, o próximo início será no ponto recebido do WebSocket:', startPoint);
+        });
+    </script>
+</body>
+</html>

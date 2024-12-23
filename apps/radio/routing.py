@@ -1,6 +1,6 @@
 from django.urls import path
-from apps.radio.consumers import AudioStreamConsumer
+from apps.radio.consumers import RadioStreamConsumer
 
 websocket_urlpatterns = [
-    path('ws/audio_stream/<int:room_id>/', AudioStreamConsumer.as_asgi()),
+    path('ws/radio/<str:radiostream_identifier>/', RadioStreamConsumer.as_asgi()),
 ]

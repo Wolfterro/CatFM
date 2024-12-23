@@ -1,9 +1,11 @@
+import os
 import uuid
 import hashlib
 from urllib.parse import urlparse, parse_qs
 
 from django.db import models
 from django.utils import timezone
+from django.conf import settings
 
 from apps.streaming.utils import upload_to_instance_folder
 from apps.streaming.services.hls_converter import HLSConverterService
@@ -59,6 +61,13 @@ class Audio(models.Model):
     @property
     def cover_full_url(self):
         return self.cover.url if self.cover else self.cover_url
+
+    @property
+    def file_stream_m3u8_url(self):
+        files = os.listdir(self.folder)
+        for f in files:
+            if f.endswith(".m3u8"):
+                return "{}{}/{}".format(settings.MEDIA_URL, self.identifier, f)
 
 
 class DownloadRequest(models.Model):

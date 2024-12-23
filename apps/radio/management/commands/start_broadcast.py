@@ -1,47 +1,40 @@
-import websockets
-import asyncio
 import os
-from django.utils import timezone
+import sys
 
 from django.core.management.base import BaseCommand
+from django.conf import settings
+from daemon import DaemonContext  # Opcional, para daemonizar o processo
 
-from apps.streaming.models import Audio
+from apps.radio.services.broadcast import BroadcastService
+
 
 class Command(BaseCommand):
-    def handle(self, *args, **options):
-        audio_queue = [x for x in Audio.objects.filter(is_active=True)]
-        asyncio.run(self.send_audio(1, audio_queue))
+    help = 'Inicia a transmissão de rádio.'
+    IS_DAEMON = True
 
-    async def send_audio(self, room_id, audio_queue):
-        # uri = f"ws://localhost:8000/ws/audio_stream/{room_id}/"
-        uri = f"ws://localhost:8000/ws/signaling/"
+    def add_arguments(self, parser):
+        parser.add_argument(
+            '--radiostream',
+            type=str,
+            help='O identificador da transmissão de rádio RadioStream.'
+        )
 
-        for audio in audio_queue:
-            file_path = audio.file.path
+    def handle(self, *args, **kwargs):
 
-            async with websockets.connect(uri) as websocket:
-                # Leia e envie blocos binários de tamanho 16 KB
-                with open(file_path, "rb") as audio_file:
-                    audio_file.seek(0, os.SEEK_END)
-                    file_size = audio_file.tell()
-                    audio_file.seek(0)
-                    chunk_size = 16384
+        self.stdout.write('Iniciando o daemon de transmissão...')
+        if self.IS_DAEMON:
+            with DaemonContext(stdout=sys.stdout, stderr=sys.stderr):
+                self.run_daemon(*args, **kwargs)
+        else:
+            self.run_daemon(*args, **kwargs)
 
-                    await self.show_audio_information(
-                        dict(
-                            filename=file_path,
-                            filesize=file_size,
-                            timestamp=timezone.now().strftime("%d/%m/%Y - %H:%M:%S"),
-                        )
-                    )
+    def run_daemon(self, *args, **kwargs):
+        broadcast_service = BroadcastService(kwargs['radiostream'])
+        broadcast_service.manage_broadcast()
 
-                    while chunk := audio_file.read(chunk_size):
-                        await websocket.send(chunk)
-                        await asyncio.sleep(0.01)
+        self.stdout.write('Transmissão iniciada.')
 
-    async def show_audio_information(self, info):
-        print(">>> Enviando: {}...".format(info.get("filename")))
-        print("> Tamanho: {} bytes".format(info.get("filesize")))
-        print("> Adicionado em: {}".format(info.get("timestamp")))
-        print("-" * 40)
-        print("")
+    def save_pid_to_file(self):
+        pid = os.getpid()
+        with open("{}/{}".format(settings.LOGS_PATH, "radio_broadcast.pid"), 'w') as pid_file:
+            pid_file.write(str(pid))
