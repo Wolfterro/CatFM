@@ -47,12 +47,11 @@
 
                         hls.on(Hls.Events.MANIFEST_PARSED, () => {
                             console.log('Manifesto HLS carregado.');
-                            playFromPointButton.disabled = false;
                         });
+                        audio.play();
                     } else if (audio.canPlayType('application/vnd.apple.mpegurl')) {
                         // Suporte nativo ao HLS (Safari, por exemplo)
                         audio.src = data.file_stream;
-                        playFromPointButton.disabled = false;
                     } else {
                         console.error('HLS não é suportado neste navegador.');
                     }
