@@ -142,6 +142,32 @@ class DownloadRequest(models.Model):
 
         return info
 
+
+class AdminRequest(models.Model):
+    link_list = models.TextField(default=None, blank=True, null=True)
+    link_list_file = models.FileField(upload_to='admin_requests/', default=None, blank=True, null=True)
+
+    status = models.CharField(max_length=255, default="pending", choices=[
+        ("pending", "Pendente"),
+        ("done", "Finalizado"),
+        ("in_process", "Em Processo")
+    ])
+    link_status_description = models.TextField(default=None, blank=True, null=True)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return "[{}] Requisição criada em: {}".format(
+            self.get_status_display(),
+            self.created_at.strftime("%d/%m/%Y %H:%M:%S")
+        )
+
+    def save(self, *args, **kwargs):
+        # Adicionar lógica de download dos links aqui!
+        super(AdminRequest, self).save(*args, **kwargs)
+
+
 class Playlist(models.Model):
     name = models.CharField(max_length=255)
     identifier = models.UUIDField(default=uuid.uuid4, editable=False)
