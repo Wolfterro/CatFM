@@ -1,6 +1,7 @@
 import os
 import uuid
 import hashlib
+import threading
 from urllib.parse import urlparse, parse_qs
 
 from django.db import models
@@ -150,6 +151,7 @@ class AdminRequest(models.Model):
     status = models.CharField(max_length=255, default="pending", choices=[
         ("pending", "Pendente"),
         ("done", "Finalizado"),
+        ("error", "Erro"),
         ("in_process", "Em Processo")
     ])
     link_status_description = models.TextField(default=None, blank=True, null=True)
@@ -160,12 +162,26 @@ class AdminRequest(models.Model):
     def __str__(self):
         return "[{}] Requisição criada em: {}".format(
             self.get_status_display(),
-            self.created_at.strftime("%d/%m/%Y %H:%M:%S")
+            timezone.localtime(self.created_at).strftime("%d/%m/%Y %H:%M:%S")
         )
 
     def save(self, *args, **kwargs):
-        # Adicionar lógica de download dos links aqui!
+        from apps.streaming.services.admin_request_downloader import AdminRequestDownloaderService
+
+        download_service = AdminRequestDownloaderService(self)
+        threading.Thread(target=download_service.download_links).start()
+
+        self.status = "in_process"
         super(AdminRequest, self).save(*args, **kwargs)
+
+    # Properties
+    @property
+    def link_list_array(self):
+        if self.link_list_file:
+            content = self.link_list_file.file.read().decode('utf-8').replace("\r", "").split("\n")
+            return [x for x in content if x not in ['', None]]
+
+        return self.link_list.split("\r\n")
 
 
 class Playlist(models.Model):
