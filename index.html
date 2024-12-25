@@ -10,6 +10,10 @@
     <h1>Reproduzir Áudio M3U8</h1>
     <audio id="audio" controls controlslist="noplaybackrate"></audio>
 
+    <div class="audioInfo">
+        <p><span id="artist"></span> - <span id="name"></span></p>
+    </div>
+
     <script>
         const audio = document.getElementById('audio');
         const playFromPointButton = document.getElementById('playFromPoint');
@@ -29,6 +33,9 @@
 
         socket.addEventListener('message', (event) => {
             const data = JSON.parse(event.data);
+            // Atualizar informações do áudio
+            document.getElementById('name').textContent = data.audio_name;
+            document.getElementById('artist').textContent = data.audio_artist;
 
             if (data.file_stream && data.seconds_passed !== undefined) {
                 console.log('Dados recebidos:', data);
