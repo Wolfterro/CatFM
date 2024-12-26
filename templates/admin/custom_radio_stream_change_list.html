@@ -1,0 +1,18 @@
+{% extends "admin/change_list.html" %}
+
+{% block result_list %}
+    <h2>Informações de Transmissão</h2>
+    {% if broadcasts|length > 0 %}
+        {% for broadcast in broadcasts %}
+            <div>
+                <h3>({{ broadcast.radio_stream.radio }}) {{ broadcast.radio_stream.title }} - {{ broadcast.radio_stream.identifier }} | <span><a href="/radio/broadcast/stop/{{ broadcast.radio_stream.identifier }}" class="deletelink">Encerrar</a></span></h3>
+                <p>{{ broadcast.cmdline }} | PID: {{ broadcast.pid }}</p>
+                <br>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>Nenhuma transmissão ativa no momento.</p>
+    {% endif %}
+
+    {{ block.super }}
+{% endblock %}

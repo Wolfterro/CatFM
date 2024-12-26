@@ -21,6 +21,7 @@
         let startPoint = 0; // Valor padrão
         let hls = null; // HLS instance
         let currentStream = null; // To track the current loaded stream
+        let transmisionIdentifier = null;
 
         // Conectar ao WebSocket
         const socket = new WebSocket('ws://localhost:8000/ws/radio/649ff1c1-3b37-4d63-ae04-150ada417ef3/');
@@ -42,7 +43,7 @@
 
                 startPoint = data.seconds_passed; // Define o ponto de início
 
-                if (currentStream !== data.file_stream) {
+                if (currentStream !== data.file_stream || transmissionIdentifier !== data.transmission_identifier) {
                     currentStream = data.file_stream; // Atualiza o stream atual
 
                     if (Hls.isSupported()) {
@@ -55,6 +56,7 @@
                         hls.on(Hls.Events.MANIFEST_PARSED, () => {
                             console.log('Manifesto HLS carregado.');
                         });
+                        transmissionIdentifier = data.transmission_identifier;
                         audio.play();
                     } else if (audio.canPlayType('application/vnd.apple.mpegurl')) {
                         // Suporte nativo ao HLS (Safari, por exemplo)

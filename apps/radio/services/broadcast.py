@@ -1,6 +1,7 @@
 import os
 import time
 import json
+import uuid
 
 from channels.layers import get_channel_layer
 from asgiref.sync import async_to_sync
@@ -24,8 +25,9 @@ class BroadcastService(object):
         # Inicia a transmissão
         while True:
             for audio in self.radio_stream.audios.all():
+                transmission_identifier = uuid.uuid4()
                 seconds_passed = 0
-                self.broadcast_audio_information(audio, seconds_passed)
+                self.broadcast_audio_information(audio, seconds_passed, transmission_identifier)
 
                 while True:
                     if seconds_passed >= audio.duration_in_seconds:
@@ -33,7 +35,7 @@ class BroadcastService(object):
 
                     time.sleep(1)
                     seconds_passed += 1
-                    self.broadcast_audio_information(audio, seconds_passed)
+                    self.broadcast_audio_information(audio, seconds_passed, transmission_identifier)
 
             break # debugging - para parar a transmissão
 
@@ -59,7 +61,7 @@ class BroadcastService(object):
         self.radio_stream.is_active = True
         self.radio_stream.save(update_fields=['is_active'])
 
-    def broadcast_audio_information(self, audio, seconds_passed):
+    def broadcast_audio_information(self, audio, seconds_passed, transmission_identifier):
         # Responsável por enviar informações da musica ao front-end via WebSocket
         # Necessário enviar segundos passados, para iniciar exatamente no ponto de reprodução.
         filename = "{}/{}".format(settings.LOGS_PATH, "broadcast_log_{}.log".format(self.radio.identifier))
@@ -78,7 +80,8 @@ class BroadcastService(object):
             'duration': audio.duration_in_seconds,
             'file': audio.file.url,
             'md5': audio.md5,
-            'file_stream': audio.file_stream_m3u8_url
+            'file_stream': audio.file_stream_m3u8_url,
+            'transmission_identifier': str(transmission_identifier)
         }
 
         channel_layer = get_channel_layer()

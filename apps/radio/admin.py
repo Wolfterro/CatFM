@@ -1,6 +1,7 @@
 from django.contrib import admin
 
 from apps.radio.models import Radio, RadioStream
+from apps.radio.services import BroacastListenerService
 
 
 # Register your models here.
@@ -16,10 +17,27 @@ class RadioAdmin(admin.ModelAdmin):
 
 
 class RadioStreamAdmin(admin.ModelAdmin):
-    list_display = ('radio', 'identifier', 'title', 'is_active', 'created_at', 'updated_at')
-    search_fields = ('radio', 'identifier', 'title', 'is_active', 'created_at', 'updated_at')
-    list_filter = ('radio', 'is_active', 'created_at', 'updated_at')
-    ordering = ('radio', 'title', 'is_active', 'created_at', 'updated_at')
+    change_list_template = "admin/custom_radio_stream_change_list.html"
+
+    list_display = ('radio', 'identifier', 'title', 'created_at', 'updated_at')
+    search_fields = ('radio', 'identifier', 'title', 'created_at', 'updated_at')
+    list_filter = ('radio', 'created_at', 'updated_at')
+    ordering = ('radio', 'title', 'created_at', 'updated_at')
+
+    def changelist_view(self, request, extra_context=None):
+        # Dados adicionais que você quer passar para o template
+        listener = BroacastListenerService()
+        custom_data = {
+            'broadcasts': listener.get_active_broadcasts()
+        }
+
+        # Combine os dados extras com o contexto existente
+        extra_context = extra_context or {}
+        extra_context.update(custom_data)
+        print(extra_context)
+
+        # Chama a implementação padrão com o contexto atualizado
+        return super().changelist_view(request, extra_context=extra_context)
 
     class Meta:
         model = RadioStream

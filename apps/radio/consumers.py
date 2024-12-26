@@ -48,7 +48,7 @@ class RadioStreamConsumer(AsyncWebsocketConsumer):
     async def file_stream_info(self, event):
         info = event['info']
         info_dict = json.loads(info)
-        auth = info_dict.get('auth', None)
+        auth = info_dict.pop('auth', None)
 
         if auth and auth == settings.WEBSOCKETS_AUTH_KEY:
-            await self.send(text_data=info)
+            await self.send(text_data=json.dumps(info_dict))

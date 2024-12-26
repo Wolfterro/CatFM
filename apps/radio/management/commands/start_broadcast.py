@@ -20,9 +20,8 @@ class Command(BaseCommand):
         )
 
     def handle(self, *args, **kwargs):
-
-        self.stdout.write('Iniciando o daemon de transmissão...')
         if self.IS_DAEMON:
+            self.stdout.write('Iniciando o daemon de transmissão...')
             with DaemonContext(stdout=sys.stdout, stderr=sys.stderr):
                 self.run_daemon(*args, **kwargs)
         else:
@@ -31,8 +30,6 @@ class Command(BaseCommand):
     def run_daemon(self, *args, **kwargs):
         broadcast_service = BroadcastService(kwargs['radiostream'])
         broadcast_service.manage_broadcast()
-
-        self.stdout.write('Transmissão iniciada.')
 
     def save_pid_to_file(self):
         pid = os.getpid()
