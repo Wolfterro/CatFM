@@ -9,7 +9,7 @@ class AdminRequestAdmin(admin.ModelAdmin):
     search_fields = ('status', 'created_at', 'updated_at')
     ordering = ('status', 'created_at', 'updated_at')
 
-    readonly_fields = ('link_status_description',)
+    readonly_fields = ('link_status_description', 'status', )
 
     class Meta:
         model = AdminRequest
