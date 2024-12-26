@@ -25,6 +25,7 @@ from apps.catuser.api.viewsets import UserViewSet
 from apps.streaming.api.viewsets import StreamingViewSet
 from apps.streaming.api.viewsets import PlaylistViewSet
 from apps.streaming.api.viewsets import DownloadRequestViewSet
+from apps.radio.api.viewsets import RadioStreamViewSet
 
 # Routers
 router = routers.DefaultRouter()
@@ -32,6 +33,7 @@ router.register(r'users', UserViewSet)
 router.register(r'streaming', StreamingViewSet)
 router.register(r'playlist', PlaylistViewSet)
 router.register(r'download_request', DownloadRequestViewSet)
+router.register(r'radio_stream', RadioStreamViewSet)
 
 # URLs
 urlpatterns = [

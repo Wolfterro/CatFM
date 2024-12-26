@@ -4,8 +4,10 @@
     <h2>Informações de Transmissão</h2>
     {% if broadcasts|length > 0 %}
         {% for broadcast in broadcasts %}
-            <div>
-                <h3>({{ broadcast.radio_stream.radio }}) {{ broadcast.radio_stream.title }} - {{ broadcast.radio_stream.identifier }} | <span><a href="/radio/broadcast/stop/{{ broadcast.radio_stream.identifier }}" class="deletelink">Encerrar</a></span></h3>
+            <div id="broadcast-{{ broadcast.pid }}">
+                <h3>({{ broadcast.radio_stream.radio }}) {{ broadcast.radio_stream.title }} - {{ broadcast.radio_stream.identifier }} |
+                    <span><a href="#" class="deletelink stop-broadcast" data-pid="{{ broadcast.pid }}" data-token="{{ token }}">Encerrar</a></span>
+                </h3>
                 <p>{{ broadcast.cmdline }} | PID: {{ broadcast.pid }}</p>
                 <br>
             </div>
@@ -15,4 +17,44 @@
     {% endif %}
 
     {{ block.super }}
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const stopLinks = document.querySelectorAll('.stop-broadcast');
+
+            stopLinks.forEach(link => {
+                link.addEventListener('click', function (event) {
+                    event.preventDefault(); // Evita o redirecionamento
+
+                    const pid = this.dataset.pid;
+                    const token = this.dataset.token;
+
+                    if (confirm('Você tem certeza que deseja encerrar esta transmissão?')) {
+                        fetch(`/radio_stream/stop_broadcast?pid=${pid}`, {
+                            method: 'GET',
+                            headers: {
+                                'X-Requested-With': 'XMLHttpRequest',
+                                'Authorization': `Token ${token}` // Adiciona o token no cabeçalho
+                            }
+                        })
+                        .then(response => {
+                            if (response.ok) {
+                                // Remove o elemento do DOM ou atualize conforme necessário
+                                const broadcastElement = document.getElementById(`broadcast-${pid}`);
+                                if (broadcastElement) {
+                                    broadcastElement.remove();
+                                }
+                            } else {
+                                alert('Ocorreu um erro ao encerrar a transmissão.');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Erro:', error);
+                            alert('Ocorreu um erro ao tentar encerrar a transmissão.');
+                        });
+                    }
+                });
+            });
+        });
+    </script>
 {% endblock %}
