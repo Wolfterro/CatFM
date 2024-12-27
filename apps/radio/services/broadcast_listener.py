@@ -1,6 +1,9 @@
 import os
+import json
 import uuid
 import psutil
+import websockets
+from asgiref.sync import async_to_sync
 
 from django.conf import settings
 
@@ -58,7 +61,8 @@ class BroacastListenerService(object):
                     pid['radio_stream'] = dict(
                         identifier=radio_stream.identifier,
                         title=radio_stream.title,
-                        radio=radio_stream.radio.name
+                        radio=radio_stream.radio.name,
+                        playing_now=async_to_sync(self.__probe_broadcast_information)(radio_stream.identifier)
                     )
 
         return active_pids
@@ -69,3 +73,21 @@ class BroacastListenerService(object):
             return True
         except ValueError:
             return False
+
+    async def __probe_broadcast_information(self, radiostream_identifier):
+        uri = f"ws://localhost:8000/ws/radio/{radiostream_identifier}/"
+
+        async with websockets.connect(uri) as websocket:
+            counter = 0
+            while True:
+                if counter > 10:
+                    break
+
+                message = await websocket.recv()
+                message_json = json.loads(message) if message else None
+                if message_json and "audio_name" in message_json:
+                    return message_json
+
+                counter += 1
+
+        return None

@@ -20,7 +20,7 @@ class RadioAdmin(admin.ModelAdmin):
 class RadioStreamAdmin(admin.ModelAdmin):
     change_list_template = "admin/custom_radio_stream_change_list.html"
 
-    list_display = ('radio', 'identifier', 'title', 'created_at', 'updated_at')
+    list_display = ('title', 'radio', 'identifier', 'created_at', 'updated_at')
     search_fields = ('radio', 'identifier', 'title', 'created_at', 'updated_at')
     list_filter = ('radio', 'created_at', 'updated_at')
     ordering = ('radio', 'title', 'created_at', 'updated_at')
@@ -40,7 +40,6 @@ class RadioStreamAdmin(admin.ModelAdmin):
         # Combine os dados extras com o contexto existente
         extra_context = extra_context or {}
         extra_context.update(custom_data)
-        print(extra_context)
 
         # Chama a implementação padrão com o contexto atualizado
         return super().changelist_view(request, extra_context=extra_context)

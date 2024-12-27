@@ -5,10 +5,13 @@
     {% if broadcasts|length > 0 %}
         {% for broadcast in broadcasts %}
             <div id="broadcast-{{ broadcast.pid }}">
-                <h3>({{ broadcast.radio_stream.radio }}) {{ broadcast.radio_stream.title }} - {{ broadcast.radio_stream.identifier }} |
+                <h3>📻 ({{ broadcast.radio_stream.radio }}) {{ broadcast.radio_stream.title }} - {{ broadcast.radio_stream.identifier }} |
+                    {% if broadcast.radio_stream.playing_now %}
+                        <span>▶ {{ broadcast.radio_stream.playing_now.audio_artist }} - {{ broadcast.radio_stream.playing_now.audio_name }} ({{ broadcast.radio_stream.playing_now.audio_year }}) |</span>
+                    {% endif %}
                     <span><a href="#" class="deletelink stop-broadcast" data-pid="{{ broadcast.pid }}" data-token="{{ token }}">Encerrar</a></span>
                 </h3>
-                <p>{{ broadcast.cmdline }} | PID: {{ broadcast.pid }}</p>
+                <p>💻 {{ broadcast.cmdline }} | PID: {{ broadcast.pid }}</p>
                 <br>
             </div>
         {% endfor %}
