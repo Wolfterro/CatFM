@@ -15,6 +15,116 @@ from apps.streaming.services.downloader import Downloader
 
 # Create your models here.
 # ========================
+class Genre(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+
+    def __str__(self):
+        return self.name
+
+    @staticmethod
+    def populate():
+        genres_list = [
+            "Rock",
+            "Pop",
+            "Hip Hop",
+            "Rap",
+            "R&B",
+            "Jazz",
+            "Blues",
+            "Gospel",
+            "Reggae",
+            "Funk",
+            "Sertanejo",
+            "Forró",
+            "MPB",
+            "Bossa Nova",
+            "Samba",
+            "Pagode",
+            "Country",
+            "Folk",
+            "Eletrônica",
+            "House",
+            "Techno",
+            "Trance",
+            "Phonk",
+            "Vaporwave",
+            "Synthwave",
+            "Dubstep",
+            "Drum and Bass",
+            "Trap",
+            "K-Pop",
+            "J-Pop",
+            "Cumbia",
+            "Bachata",
+            "Reggaeton",
+            "Merengue",
+            "Salsa",
+            "Bolero",
+            "Heavy Metal",
+            "Hard Rock",
+            "Punk",
+            "Emo",
+            "Grunge",
+            "Indie",
+            "Alternative Rock",
+            "Progressive Rock",
+            "Classic Rock",
+            "New Age",
+            "World Music",
+            "Afrobeat",
+            "Kizomba",
+            "Zouk",
+            "Opera",
+            "Classical",
+            "Baroque",
+            "Chillout",
+            "Lo-fi",
+            "Ambient",
+            "Experimental",
+            "Industrial",
+            "Soundtrack",
+            "Musical",
+            "Choro",
+            "Axé",
+            "Tango",
+            "Polka",
+            "Hardcore",
+            "Death Metal",
+            "Black Metal",
+            "Thrash Metal",
+            "Gothic",
+            "Post-Rock",
+            "Shoegaze",
+            "Dream Pop",
+            "Dub",
+            "Dancehall",
+            "Future Bass",
+            "Moombahton",
+            "Electro",
+            "Chiptune",
+            "Jungle",
+            "Garage",
+            "Breakbeat",
+            "Ska",
+            "Math Rock",
+            "Post-Hardcore",
+            "Screamo",
+            "Art Rock",
+            "Drone",
+            "Avant-Garde",
+            "Ethnic",
+            "Latin",
+            "Turkish",
+            "Arabic",
+            "Bollywood",
+            "Carnatic",
+            "Hindustani",
+            "Flamenco"
+        ]
+        for genre in genres_list:
+            Genre.objects.get_or_create(name=genre)
+
+
 class Audio(models.Model):
     identifier = models.UUIDField(default=uuid.uuid4, editable=False)
 
@@ -25,6 +135,8 @@ class Audio(models.Model):
     duration_in_seconds = models.IntegerField(default=0)
     cover = models.FileField(upload_to=upload_to_instance_folder, default=None, blank=True, null=True)
     cover_url = models.URLField(default=None, blank=True, null=True)
+
+    genres = models.ManyToManyField(Genre, blank=True)
 
     file = models.FileField(upload_to=upload_to_instance_folder)
     format = models.CharField(max_length=5, default="mp3")
@@ -69,6 +181,10 @@ class Audio(models.Model):
         for f in files:
             if f.endswith(".m3u8"):
                 return "{}{}/{}".format(settings.MEDIA_URL, self.identifier, f)
+
+    @property
+    def genres_list(self):
+        return [g.name for g in self.genres.all()]
 
 
 class DownloadRequest(models.Model):

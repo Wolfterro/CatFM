@@ -24,6 +24,7 @@ deploy:
 	@echo "Migrando banco de dados..."
 	@python manage.py migrate
 	@python manage.py loaddata templates/admin_interface_theme_catfm.json
+	@python manage.py loaddata templates/musical_genres.json
 
 	@echo "Deploy concluído! Executando servidor em http://127.0.0.1:8000..."
 	@python manage.py runserver

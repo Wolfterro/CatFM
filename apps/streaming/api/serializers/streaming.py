@@ -4,6 +4,7 @@ from rest_framework import serializers
 
 class StreamingSerializer(serializers.ModelSerializer):
     cover_url = serializers.ReadOnlyField(source="cover_full_url")
+    genres = serializers.ReadOnlyField(source="genres_list")
 
     class Meta:
         model = Audio
@@ -13,6 +14,7 @@ class StreamingSerializer(serializers.ModelSerializer):
             'album',
             'artist',
             'year',
+            'genres',
             'cover_url',
             'file',
             'duration_in_seconds',

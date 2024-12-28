@@ -1,0 +1,674 @@
+[
+  {
+    "model": "streaming.genre",
+    "pk": 1,
+    "fields": {
+      "name": "Rock"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 2,
+    "fields": {
+      "name": "Pop"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 3,
+    "fields": {
+      "name": "Hip Hop"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 4,
+    "fields": {
+      "name": "Rap"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 5,
+    "fields": {
+      "name": "R&B"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 6,
+    "fields": {
+      "name": "Jazz"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 7,
+    "fields": {
+      "name": "Blues"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 8,
+    "fields": {
+      "name": "Gospel"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 9,
+    "fields": {
+      "name": "Reggae"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 10,
+    "fields": {
+      "name": "Funk"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 11,
+    "fields": {
+      "name": "Sertanejo"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 12,
+    "fields": {
+      "name": "Forró"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 13,
+    "fields": {
+      "name": "MPB"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 14,
+    "fields": {
+      "name": "Bossa Nova"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 15,
+    "fields": {
+      "name": "Samba"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 16,
+    "fields": {
+      "name": "Pagode"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 17,
+    "fields": {
+      "name": "Country"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 18,
+    "fields": {
+      "name": "Folk"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 19,
+    "fields": {
+      "name": "Eletrônica"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 20,
+    "fields": {
+      "name": "House"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 21,
+    "fields": {
+      "name": "Techno"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 22,
+    "fields": {
+      "name": "Trance"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 23,
+    "fields": {
+      "name": "Phonk"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 24,
+    "fields": {
+      "name": "Vaporwave"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 25,
+    "fields": {
+      "name": "Synthwave"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 26,
+    "fields": {
+      "name": "Dubstep"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 27,
+    "fields": {
+      "name": "Drum and Bass"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 28,
+    "fields": {
+      "name": "Trap"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 29,
+    "fields": {
+      "name": "K-Pop"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 30,
+    "fields": {
+      "name": "J-Pop"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 31,
+    "fields": {
+      "name": "Cumbia"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 32,
+    "fields": {
+      "name": "Bachata"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 33,
+    "fields": {
+      "name": "Reggaeton"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 34,
+    "fields": {
+      "name": "Merengue"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 35,
+    "fields": {
+      "name": "Salsa"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 36,
+    "fields": {
+      "name": "Bolero"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 37,
+    "fields": {
+      "name": "Heavy Metal"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 38,
+    "fields": {
+      "name": "Hard Rock"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 39,
+    "fields": {
+      "name": "Punk"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 40,
+    "fields": {
+      "name": "Emo"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 41,
+    "fields": {
+      "name": "Grunge"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 42,
+    "fields": {
+      "name": "Indie"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 43,
+    "fields": {
+      "name": "Alternative Rock"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 44,
+    "fields": {
+      "name": "Progressive Rock"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 45,
+    "fields": {
+      "name": "Classic Rock"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 46,
+    "fields": {
+      "name": "New Age"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 47,
+    "fields": {
+      "name": "World Music"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 48,
+    "fields": {
+      "name": "Afrobeat"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 49,
+    "fields": {
+      "name": "Kizomba"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 50,
+    "fields": {
+      "name": "Zouk"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 51,
+    "fields": {
+      "name": "Opera"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 52,
+    "fields": {
+      "name": "Classical"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 53,
+    "fields": {
+      "name": "Baroque"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 54,
+    "fields": {
+      "name": "Chillout"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 55,
+    "fields": {
+      "name": "Lo-fi"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 56,
+    "fields": {
+      "name": "Ambient"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 57,
+    "fields": {
+      "name": "Experimental"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 58,
+    "fields": {
+      "name": "Industrial"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 59,
+    "fields": {
+      "name": "Soundtrack"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 60,
+    "fields": {
+      "name": "Musical"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 61,
+    "fields": {
+      "name": "Choro"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 62,
+    "fields": {
+      "name": "Axé"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 63,
+    "fields": {
+      "name": "Tango"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 64,
+    "fields": {
+      "name": "Polka"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 65,
+    "fields": {
+      "name": "Hardcore"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 66,
+    "fields": {
+      "name": "Death Metal"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 67,
+    "fields": {
+      "name": "Black Metal"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 68,
+    "fields": {
+      "name": "Thrash Metal"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 69,
+    "fields": {
+      "name": "Gothic"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 70,
+    "fields": {
+      "name": "Post-Rock"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 71,
+    "fields": {
+      "name": "Shoegaze"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 72,
+    "fields": {
+      "name": "Dream Pop"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 73,
+    "fields": {
+      "name": "Dub"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 74,
+    "fields": {
+      "name": "Dancehall"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 75,
+    "fields": {
+      "name": "Future Bass"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 76,
+    "fields": {
+      "name": "Moombahton"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 77,
+    "fields": {
+      "name": "Electro"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 78,
+    "fields": {
+      "name": "Chiptune"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 79,
+    "fields": {
+      "name": "Jungle"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 80,
+    "fields": {
+      "name": "Garage"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 81,
+    "fields": {
+      "name": "Breakbeat"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 82,
+    "fields": {
+      "name": "Ska"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 83,
+    "fields": {
+      "name": "Math Rock"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 84,
+    "fields": {
+      "name": "Post-Hardcore"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 85,
+    "fields": {
+      "name": "Screamo"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 86,
+    "fields": {
+      "name": "Art Rock"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 87,
+    "fields": {
+      "name": "Drone"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 88,
+    "fields": {
+      "name": "Avant-Garde"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 89,
+    "fields": {
+      "name": "Ethnic"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 90,
+    "fields": {
+      "name": "Latin"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 91,
+    "fields": {
+      "name": "Turkish"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 92,
+    "fields": {
+      "name": "Arabic"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 93,
+    "fields": {
+      "name": "Bollywood"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 94,
+    "fields": {
+      "name": "Carnatic"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 95,
+    "fields": {
+      "name": "Hindustani"
+    }
+  },
+  {
+    "model": "streaming.genre",
+    "pk": 96,
+    "fields": {
+      "name": "Flamenco"
+    }
+  }
+]
