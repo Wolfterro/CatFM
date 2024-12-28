@@ -1,56 +1,29 @@
+# CatFM - A Simple Python Project for Creating a Music Streaming Service
+
+![Static Badge](https://img.shields.io/badge/Python-3.9_%7C_3.10_%7C_3.11_%7C_3.12-blue)
+![Static Badge](https://img.shields.io/badge/License-MIT_License-green)
+![Static Badge](https://img.shields.io/badge/Coverage-0_%25-red)
+
 # CatFM
 
-CatFM é um pequeno projeto de software desenvolvido em Python utilizando o framework Django e tem como objetivo ser o backend principal do streaming de áudio.
+CatFM is a simple Python project that creates a music streaming service using Django and Django Channels. It is a Django project that uses the Django REST framework for creating a REST API, and Django Channels for handling WebSocket connections.
 
-Ele irá conter duas ferramentas principais:
+The project is divided into three main apps: `catuser`, `radio`, and `streaming`. The `catuser` app is used for user authentication, the `radio` app is used for creating radio streams, and the `streaming` app is used for creating playlists and handling music streaming.
 
-- Radio
-- Streaming 
+The project is still under development and should not be used in production yet.
 
-## Radio
+## Apps Overview
 
-A aplicação de rádio irá ser responsável por fazer o streaming contínuo dos arquivos de áudio selecionados para serem transmitidos em um canal selecionado utilizando a tecnologia de WebSockets.
+### catuser
 
-O administrador da rádio irá conseguir gerir os arquivos a serem adicionados ou removidos utilizando o CRM do Django. Haverá também a possibilidade de criar múltiplos canais de transmissão que serão responsáveis por transmitir diferentes tipos de música que forem selecionadas.
+The `catuser` app is responsible for managing user authentication and account management. It provides the necessary infrastructure for user registration, login, and management of user credentials. The app integrates with Django's authentication system and extends it as necessary to meet the specific requirements of the CatFM project. It includes models for storing user data and APIs for handling user-related operations, ensuring secure access to the streaming services.
 
-## Streaming
+### radio
 
-A aplicação de streaming irá ser responsável por fornecer sob demanda diferentes arquivos de áudio para o usuário.
+The `radio` app facilitates the creation and management of live radio streams. It leverages WebSocket technology to stream audio files continuously over selected channels. The app allows administrators to manage audio files, add or remove them using Django's admin interface, and create multiple broadcast channels. These channels can stream various genres or types of music. The app includes models to represent radio streams and their attributes, as well as services to handle broadcasting logic and WebSocket connections.
 
-O administrador ficará encarregado de baixar novas músicas utilizando ferramentas de gerenciamento internas e até mesmo aprovar solicitações de download de novas músicas para o serviço (uma API ficará responsável por isso, o usuário irá mandar o link do YouTube contendo o áudio desejado e o administrador irá aprovar ou recusar o pedido utilizando o CRM do Django).
+### streaming
 
-O administrador também terá a possibilidade de desativar áudios que violem as regras estabelecidas pelo serviço, se assim for necessário.
+The `streaming` app is designed for on-demand music streaming. It provides users with the capability to request and play different audio files as needed. The app includes functionality for managing audio content, downloading new tracks, and handling requests for new music. Administrators can approve or reject these requests through an API and manage content visibility. The app also supports playlist creation, allowing users to curate playlists based on their preferences. Models within the app store metadata about the audio files and playlists, and APIs enable interaction with the streaming service.
 
-## Funcionalidades Extras
-
-### Cadastro de Músicas
-
-As músicas poderão ser cadastradas pelo administrador do serviço ou requisitadas para download.
-
-O administrador, em ambos os casos, ficará encarregado de cadastrar corretamente o título, o autor, o nome do álbum, a capa (se houver), o ano e os gêneros musicais daquele áudio.
-
-O administrador terá todas as prerrogativas para aprovar ou recusar solicitações de download de novos arquivos de música. Caso a música seja aprovada, ela deverá constar na seção de novas mídias no front-end ou na aplicação Android.
-
-### Aplicações
-
-O backend irá servir aplicações desenvolvidas em Vue (catfm-frontend) e Android (catfm-android). Estas aplicações serão responsáveis por fazer a interface com o backend e com isso fornecer aos usuários o serviço de streaming e de rádio.
-
-A aplicação Android deverá possuir a capacidade de utilizar a rádio e o streaming de músicas de forma que, se a tela do celular for bloqueada, ela deverá continuar a tocar.
-
-### Login
-
-O front-end e o aplicativo deverão implementar o login de usuário, que após o cadastro realizado diretamente pelo administrador utilizando o CRM do Django, deverão logar antes de utilizar os serviços.
-
-As contas deverão possuir um e-mail e uma senha. Em caso de perda do e-mail ou da senha, o usuário deverá solicitar a alteração das credenciais ao administrador do sistema.
-
-### Playlists
-
-Os usuários terão a possibilidade de criar playlists baseadas em seus gostos, além de utilizar as playlists já criadas pelo administrador do serviço. Playlists poderão ser compartilhadas e configuradas como Pública (podendo assim ser compartilhada) ou Privada (sem compartilhamento, mesmo com link). Playlists compartilhadas serão copiadas para o usuário que requisitar, caso haja interesse.
-
-## Existência do Projeto
-
-<s>Mano, nem fudendo eu vou pagar R$ 21,90 pro YouTube Music pra ouvir música que eu já tenho kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk</s>
-
-A razão principal da existência deste projeto é criar um projeto completo de serviço de streaming de músicas de forma simples e descomplicada de modo que eu futuramente possa utilizar, de modo inteiramente pessoal, e que também sirva como um grande portfólio de desenvolvimento de software.
-
-Desta forma, eu estarei desenvolvendo em três diferentes camadas: Back-end, Front-end e Mobile.
+For more information about the project, please visit the GitHub repository: https://github.com/Wolfterro/CatFM
