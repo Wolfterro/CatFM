@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from rest_framework.filters import OrderingFilter
 from django_filters.rest_framework import DjangoFilterBackend
 
+from apps.streaming.api import StreamingPaginator
 from apps.streaming.models import Playlist
 from apps.streaming.api.serializers.playlist import PlaylistSerializer
 from apps.streaming.api.filters.playlist import PlaylistFilter
@@ -13,6 +14,8 @@ from apps.streaming.api.filters.playlist import PlaylistFilter
 class PlaylistViewSet(viewsets.ModelViewSet):
     queryset = Playlist.objects.all()
     serializer_class = PlaylistSerializer
+
+    pagination_class = StreamingPaginator
     lookup_field = 'identifier'
     filterset_class = PlaylistFilter
     filter_backends = [DjangoFilterBackend, OrderingFilter]
@@ -29,16 +32,35 @@ class PlaylistViewSet(viewsets.ModelViewSet):
     @action(detail=False, methods=['get'], permission_classes=[IsAuthenticated])
     def my_playlists(self, request):
         user = request.user
+
+        # Obter o queryset filtrado
         queryset = Playlist.objects.filter(owner=user)
         filterset = PlaylistFilter(request.GET, queryset=queryset, request=request)
-        data = PlaylistSerializer(filterset.qs, many=True).data
+        filtered_queryset = filterset.qs
 
-        return Response(data)
+        # Aplicar paginação
+        paginator = StreamingPaginator()
+        paginated_queryset = paginator.paginate_queryset(filtered_queryset, request)
+        serializer = PlaylistSerializer(paginated_queryset, many=True)
+
+        # Retornar a resposta paginada
+        return paginator.get_paginated_response(serializer.data)
 
     @action(detail=False, methods=['get'], permission_classes=[IsAuthenticated])
     def system_playlists(self, request):
+        # Filtrar as playlists do sistema
         queryset = Playlist.objects.filter(is_system_playlist=True)
-        filterset = PlaylistFilter(request.GET, queryset=queryset, request=request)
-        data = PlaylistSerializer(filterset.qs, many=True).data
 
-        return Response(data)
+        # Aplicar os filtros ao queryset
+        filterset = PlaylistFilter(request.GET, queryset=queryset, request=request)
+        filtered_queryset = filterset.qs
+
+        # Configurar a paginação
+        paginator = StreamingPaginator()
+        paginated_queryset = paginator.paginate_queryset(filtered_queryset, request)
+
+        # Serializar os dados paginados
+        serializer = PlaylistSerializer(paginated_queryset, many=True)
+
+        # Retornar a resposta paginada
+        return paginator.get_paginated_response(serializer.data)

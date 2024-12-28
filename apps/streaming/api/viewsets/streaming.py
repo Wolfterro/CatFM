@@ -7,11 +7,13 @@ from django_filters.rest_framework import DjangoFilterBackend
 from apps.streaming.api.filters import StreamingFilter
 from apps.streaming.models import Audio
 from apps.streaming.api.serializers.streaming import StreamingSerializer
+from apps.streaming.api.paginator import StreamingPaginator
 
 
 class StreamingViewSet(viewsets.ModelViewSet):
     queryset = Audio.objects.filter(is_active=True)
     serializer_class = StreamingSerializer
+    pagination_class = StreamingPaginator
     lookup_field = 'identifier'
     http_method_names = ['get', 'head', 'options']
     filterset_class = StreamingFilter
