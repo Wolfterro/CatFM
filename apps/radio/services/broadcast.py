@@ -2,6 +2,7 @@ import os
 import time
 import json
 import uuid
+import subprocess
 
 from channels.layers import get_channel_layer
 from asgiref.sync import async_to_sync
@@ -38,6 +39,18 @@ class BroadcastService(object):
                     self.broadcast_audio_information(audio, seconds_passed, transmission_identifier)
 
             break # debugging - para parar a transmissão
+
+    def start_broadcast(self):
+        subprocess.run([
+            'python',
+            'manage.py',
+            'start_broadcast',
+            '--radiostream',
+            str(self.radio_stream_identifier)
+        ])
+
+    def stop_broadcast(self):
+        self.kill_current_broadcast()
 
     # Auxiliary Methods
     # -----------------

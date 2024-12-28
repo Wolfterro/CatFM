@@ -16,4 +16,5 @@ class DownloadRequestAdmin(admin.ModelAdmin):
     class Meta:
         model = DownloadRequest
 
+
 admin.site.register(DownloadRequest, DownloadRequestAdmin)
