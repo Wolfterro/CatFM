@@ -26,4 +26,43 @@ The `radio` app facilitates the creation and management of live radio streams. I
 
 The `streaming` app is designed for on-demand music streaming. It provides users with the capability to request and play different audio files as needed. The app includes functionality for managing audio content, downloading new tracks, and handling requests for new music. Administrators can approve or reject these requests through an API and manage content visibility. The app also supports playlist creation, allowing users to curate playlists based on their preferences. Models within the app store metadata about the audio files and playlists, and APIs enable interaction with the streaming service.
 
+## Screenshots
+
+![Audio Streaming](https://github.com/Wolfterro/CatFM/docs/screenshots/screenshot01.png?raw=true)
+
+![Radio List](https://github.com/Wolfterro/CatFM/docs/screenshots/screenshot02.png?raw=true)
+
+![Radio Stream List](https://github.com/Wolfterro/CatFM/docs/screenshots/screenshot03.png?raw=true)
+
+![Radio Broadcast Info](https://github.com/Wolfterro/CatFM/docs/screenshots/screenshot04.png?raw=true)
+
+![Admin Requests](https://github.com/Wolfterro/CatFM/docs/screenshots/screenshot05.png?raw=true)
+
+## License
+
+```txt
+MIT License
+
+Copyright (c) 2024 Wolfgang Almeida
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+```
+
 For more information about the project, please visit the GitHub repository: https://github.com/Wolfterro/CatFM
