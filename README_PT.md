@@ -2,7 +2,7 @@
 
 ![Badge Estático](https://img.shields.io/badge/Python-3.9_%7C_3.10_%7C_3.11_%7C_3.12-blue)
 ![Badge Estático](https://img.shields.io/badge/Licença-Licença_MIT-green)
-![Badge Estático](https://img.shields.io/badge/Cobertura_de_Testes-68_%25-yellow)
+![Badge Estático](https://img.shields.io/badge/Cobertura_de_Testes-29_%25-red)
 
 # CatFM
 
