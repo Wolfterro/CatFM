@@ -51,15 +51,15 @@ interação com o serviço de streaming.
 
 ## Capturas de Tela
 
-![Audio Streaming](https://github.com/Wolfterro/CatFM/docs/screenshots/screenshot01.png?raw=true)
+![Audio Streaming](https://github.com/Wolfterro/CatFM/blob/master/docs/screenshots/screenshot01.png?raw=true)
 
-![Radio List](https://github.com/Wolfterro/CatFM/docs/screenshots/screenshot02.png?raw=true)
+![Radio List](https://github.com/Wolfterro/CatFM/blob/master/docs/screenshots/screenshot02.png?raw=true)
 
-![Radio Stream List](https://github.com/Wolfterro/CatFM/docs/screenshots/screenshot03.png?raw=true)
+![Radio Stream List](https://github.com/Wolfterro/CatFM/blob/master/docs/screenshots/screenshot03.png?raw=true)
 
-![Radio Broadcast Info](https://github.com/Wolfterro/CatFM/docs/screenshots/screenshot04.png?raw=true)
+![Radio Broadcast Info](https://github.com/Wolfterro/CatFM/blob/master/docs/screenshots/screenshot04.png?raw=true)
 
-![Admin Requests](https://github.com/Wolfterro/CatFM/docs/screenshots/screenshot05.png?raw=true)
+![Admin Requests](https://github.com/Wolfterro/CatFM/blob/master/docs/screenshots/screenshot05.png?raw=true)
 
 ## Licença
 
