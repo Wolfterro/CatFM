@@ -16,7 +16,7 @@ from apps.streaming.services.downloader import Downloader
 # Create your models here.
 # ========================
 class Genre(models.Model):
-    name = models.CharField(max_length=100, unique=True)
+    name = models.CharField(max_length=100, unique=True, verbose_name='Nome')
 
     def __str__(self):
         return self.name
@@ -126,26 +126,26 @@ class Genre(models.Model):
 
 
 class Audio(models.Model):
-    identifier = models.UUIDField(default=uuid.uuid4, editable=False)
+    identifier = models.UUIDField(default=uuid.uuid4, editable=False, verbose_name='Identificador')
 
-    name = models.CharField(max_length=255)
-    album = models.CharField(max_length=255, default=None, blank=True, null=True)
-    artist = models.CharField(max_length=255, default=None, blank=True, null=True)
-    year = models.IntegerField(default=0)
-    duration_in_seconds = models.IntegerField(default=0)
-    cover = models.FileField(upload_to=upload_to_instance_folder, default=None, blank=True, null=True)
-    cover_url = models.URLField(default=None, blank=True, null=True)
+    name = models.CharField(max_length=255, verbose_name='Nome')
+    album = models.CharField(max_length=255, default=None, blank=True, null=True, verbose_name='Álbum')
+    artist = models.CharField(max_length=255, default=None, blank=True, null=True, verbose_name='Artista')
+    year = models.IntegerField(default=0, verbose_name='Ano')
+    duration_in_seconds = models.IntegerField(default=0, verbose_name='Duração (em segundos)')
+    cover = models.FileField(upload_to=upload_to_instance_folder, default=None, blank=True, null=True, verbose_name='Capa')
+    cover_url = models.URLField(default=None, blank=True, null=True, verbose_name='URL da capa')
 
-    genres = models.ManyToManyField(Genre, blank=True)
+    genres = models.ManyToManyField(Genre, blank=True, verbose_name='Gêneros')
 
-    file = models.FileField(upload_to=upload_to_instance_folder)
-    format = models.CharField(max_length=5, default="mp3")
-    md5 = models.CharField(max_length=32, default=None, editable=False)
+    file = models.FileField(upload_to=upload_to_instance_folder, verbose_name='Arquivo')
+    format = models.CharField(max_length=5, default="mp3", verbose_name='Formato')
+    md5 = models.CharField(max_length=32, default=None, editable=False, verbose_name='MD5')
 
-    is_active = models.BooleanField(default=True)
+    is_active = models.BooleanField(default=True, verbose_name='Ativo?')
 
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name='Criado em')
+    updated_at = models.DateTimeField(auto_now=True, verbose_name='Atualizado em')
 
     def __str__(self):
         return "{} - {} ({})".format(self.artist, self.name, self.year)
@@ -185,23 +185,24 @@ class Audio(models.Model):
     @property
     def genres_list(self):
         return [g.name for g in self.genres.all()]
+    genres_list.fget.short_description = "Gêneros"
 
 
 class DownloadRequest(models.Model):
-    audio = models.ForeignKey(Audio, on_delete=models.SET_NULL, null=True, blank=True)
-    url = models.URLField()
-    title = models.CharField(max_length=255, default=None, blank=True, null=True)
-    requested_by = models.ForeignKey("catuser.CatUser", on_delete=models.SET_NULL, null=True, blank=True)
+    audio = models.ForeignKey(Audio, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Áudio")
+    url = models.URLField(verbose_name="URL")
+    title = models.CharField(max_length=255, default=None, blank=True, null=True, verbose_name="Título")
+    requested_by = models.ForeignKey("catuser.CatUser", on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Solicitado por")
 
     status = models.CharField(max_length=255, default="pending", choices=[
         ("pending", "Pendente"),
         ("approved", "Aprovado"),
         ("rejected", "Rejeitado")
-    ])
+    ], verbose_name="Status")
 
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    approved_at = models.DateTimeField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Criado em")
+    updated_at = models.DateTimeField(auto_now=True, verbose_name="Atualizado em")
+    approved_at = models.DateTimeField(null=True, blank=True, verbose_name="Aprovado em")
 
     def __str__(self):
         return "[{}] {}".format(self.get_status_display(), self.url)
@@ -261,19 +262,19 @@ class DownloadRequest(models.Model):
 
 
 class AdminRequest(models.Model):
-    link_list = models.TextField(default=None, blank=True, null=True)
-    link_list_file = models.FileField(upload_to='admin_requests/', default=None, blank=True, null=True)
+    link_list = models.TextField(default=None, blank=True, null=True, verbose_name="Lista de links")
+    link_list_file = models.FileField(upload_to='admin_requests/', default=None, blank=True, null=True, verbose_name="Arquivo com a lista de links")
 
     status = models.CharField(max_length=255, default="pending", choices=[
         ("pending", "Pendente"),
         ("done", "Finalizado"),
         ("error", "Erro"),
         ("in_process", "Em Processo")
-    ])
-    link_status_description = models.TextField(default=None, blank=True, null=True)
+    ], verbose_name="Status")
+    link_status_description = models.TextField(default=None, blank=True, null=True, verbose_name="Descrição de status dos links")
 
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Criado em")
+    updated_at = models.DateTimeField(auto_now=True, verbose_name="Atualizado em")
 
     def __str__(self):
         return "[{}] Requisição criada em: {}".format(
@@ -301,17 +302,17 @@ class AdminRequest(models.Model):
 
 
 class Playlist(models.Model):
-    name = models.CharField(max_length=255)
-    identifier = models.UUIDField(default=uuid.uuid4, editable=False)
+    name = models.CharField(max_length=255, verbose_name="Nome")
+    identifier = models.UUIDField(default=uuid.uuid4, editable=False, verbose_name="Identificador")
 
-    can_be_shared = models.BooleanField(default=True)
-    audios = models.ManyToManyField(Audio, blank=True)
-    owner = models.ForeignKey("catuser.CatUser", on_delete=models.SET_NULL, null=True, blank=True)
+    can_be_shared = models.BooleanField(default=True, verbose_name="Pode ser compartilhada?")
+    audios = models.ManyToManyField(Audio, blank=True, verbose_name="Áudios")
+    owner = models.ForeignKey("catuser.CatUser", on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Usuário")
 
-    is_system_playlist = models.BooleanField(default=False)
+    is_system_playlist = models.BooleanField(default=False, verbose_name="É playlist de sistema?")
 
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Criado em")
+    updated_at = models.DateTimeField(auto_now=True, verbose_name="Atualizado em")
 
     def __str__(self):
         return "[{}] {}{}".format(
