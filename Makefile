@@ -29,3 +29,10 @@ deploy:
 	@echo "Deploy concluído! Executando servidor em http://127.0.0.1:8000..."
 	@python manage.py runserver
 
+test:
+	@coverage run -m pytest
+	@coverage report
+
+cov-html:
+	@coverage html
+

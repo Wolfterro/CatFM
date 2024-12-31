@@ -8,6 +8,7 @@ class UserSerializer(serializers.ModelSerializer):
     is_active = serializers.BooleanField(read_only=True)
     date_joined = serializers.DateTimeField(read_only=True)
     password = serializers.CharField(write_only=True)
+    email = serializers.EmailField(read_only=True)
 
     class Meta:
         model = CatUser
@@ -21,8 +22,10 @@ class UserSerializer(serializers.ModelSerializer):
         return user
 
     def update(self, instance, validated_data):
-        if "email" in validated_data:
-            del validated_data['email']
+        if instance.id != self.context['request'].user.id:
+            raise serializers.ValidationError(
+                {"detail": "Você não tem permissão para editar outro usuário."}
+            )
 
         if "password" in validated_data:
             del validated_data['password']

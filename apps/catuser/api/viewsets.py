@@ -19,6 +19,15 @@ class UserViewSet(viewsets.ModelViewSet):
 
         return [IsAuthenticated()]
 
+    def list(self, request, *args, **kwargs):
+        raise ValidationError({"message": "Você nao possui permissão para listar as transmissões."})
+
+    def retrieve(self, request, *args, **kwargs):
+        if request.user.id != self.get_object().id:
+            raise ValidationError({"message": "Você nao possui permissão para visualizar uma transmissão."})
+
+        return super(UserViewSet, self).retrieve(request, *args, **kwargs)
+
     def destroy(self, request, *args, **kwargs):
         user = self.get_object()
         logged_user = CatUser.objects.get(id=request.user.id)
@@ -45,7 +54,7 @@ class UserViewSet(viewsets.ModelViewSet):
     @action(detail=True, methods=['patch'])
     def change_password(self, request, pk=None):
         user = self.get_object()
-        if user.id != request.user.id or not request.user.is_staff:
+        if user.id != request.user.id and not request.user.is_staff:
             raise ValidationError({"detail": "Você não tem permissão para editar outro usuário."})
 
         user.set_password(request.data['password'])
