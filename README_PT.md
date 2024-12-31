@@ -49,6 +49,16 @@ que os usuários criem playlists com base em suas preferências. Os modelos no a
 armazenam metadados sobre os arquivos de áudio e playlists, e as APIs permitem
 interação com o serviço de streaming.
 
+## Deploy
+
+O projeto ainda está em desenvolvimento e não deve ser usado em produção!
+
+Porém, se desejar usar o projeto em desenvolvimento, siga as instruções abaixo:
+
+Assim que for feito o clone do repositório e o ambiente Python estiver configurado, execute o comando `make deploy`
+
+Se você quiser executar testes, execute o comando `make test`.
+
 ## Capturas de Tela
 
 ![Audio Streaming](https://github.com/Wolfterro/CatFM/blob/master/docs/screenshots/screenshot01.png?raw=true)

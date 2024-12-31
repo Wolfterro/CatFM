@@ -26,6 +26,16 @@ The `radio` app facilitates the creation and management of live radio streams. I
 
 The `streaming` app is designed for on-demand music streaming. It provides users with the capability to request and play different audio files as needed. The app includes functionality for managing audio content, downloading new tracks, and handling requests for new music. Administrators can approve or reject these requests through an API and manage content visibility. The app also supports playlist creation, allowing users to curate playlists based on their preferences. Models within the app store metadata about the audio files and playlists, and APIs enable interaction with the streaming service.
 
+## Deploy
+
+This project is still under development and should not be used in production yet!
+
+However, if you want to try it out, you can clone the repository and follow the instructions in the `README.md` file to set up a local development environment.
+
+Once you have the environment set up, you can run the app using the command `make deploy`.
+
+If you want to perform some tests, you can run the command `make test`.
+
 ## Screenshots
 
 ![Audio Streaming](https://github.com/Wolfterro/CatFM/blob/master/docs/screenshots/screenshot01.png?raw=true)
