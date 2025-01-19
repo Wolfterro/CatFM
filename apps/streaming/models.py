@@ -187,6 +187,14 @@ class Audio(models.Model):
         return [g.name for g in self.genres.all()]
     genres_list.fget.short_description = "Gêneros"
 
+    @property
+    def file_url(self):
+        url = self.file.url if self.file else None
+        if not url:
+            return None
+
+        return url
+
 
 class DownloadRequest(models.Model):
     audio = models.ForeignKey(Audio, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Áudio")

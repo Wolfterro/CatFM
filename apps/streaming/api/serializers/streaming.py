@@ -16,7 +16,7 @@ class StreamingSerializer(serializers.ModelSerializer):
             'year',
             'genres',
             'cover_url',
-            'file',
+            'file_url',
             'duration_in_seconds',
             'md5',
             'created_at',
